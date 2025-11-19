@@ -1,5 +1,7 @@
 // src/pages/HomePage.jsx
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+
 
 export default function HomePage() {
   return (
@@ -21,16 +23,20 @@ export default function HomePage() {
         >
           Discover curated collections of timeless apparel and accessories, crafted for the modern individual.
         </motion.p>
-        <motion.button
-          className="bg-black text-white font-bold py-3 px-8 rounded-lg shadow-lg"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-        >
-          Shop Now
-        </motion.button>
+
+        <Link to="/products">
+          <motion.button
+            className="bg-black text-white font-bold py-3 px-8 rounded-lg shadow-lg"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+          >
+            Shop Now
+          </motion.button>
+        </Link>
+
       </div>
     </section>
   );
