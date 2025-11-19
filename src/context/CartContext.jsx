@@ -6,6 +6,8 @@ const CartContext = createContext();
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
 
+  const clearCart = () => setCartItems([]);
+
   const addToCart = (product) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
@@ -19,10 +21,8 @@ export function CartProvider({ children }) {
     });
   };
 
-  // --- NEW: Function to update quantity ---
   const updateQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) {
-      // If quantity is 0 or less, remove the item
       removeFromCart(productId);
     } else {
       setCartItems(prevItems =>
@@ -33,13 +33,10 @@ export function CartProvider({ children }) {
     }
   };
 
-  // --- NEW: Function to remove an item ---
   const removeFromCart = (productId) => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
   };
 
-  // --- NEW: Calculate subtotal ---
-  // useMemo ensures this only recalculates when cartItems changes
   const subtotal = useMemo(() => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   }, [cartItems]);
@@ -49,9 +46,10 @@ export function CartProvider({ children }) {
       value={{ 
         cartItems, 
         addToCart, 
-        updateQuantity, // Add new functions to provider
-        removeFromCart, //
-        subtotal        // Add subtotal to provider
+        updateQuantity, 
+        removeFromCart, 
+        clearCart,
+        subtotal 
       }}
     >
       {children}

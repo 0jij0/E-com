@@ -1,16 +1,16 @@
-// src/components/layout/Navbar.jsx
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, LogOut, User } from 'lucide-react'; // Added LogOut and User icons
+import { ShoppingBag, LogOut, User } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
-import { useAuth } from '../../context/AuthContext'; // 1. Import Auth Context
+import { useAuth } from '../../context/AuthContext';
 
 export default function Navbar() {
   const { cartItems } = useCart();
-  const { user, signOut } = useAuth(); // 2. Get user and signOut function
+  const { user, signOut } = useAuth();
   const location = useLocation();
 
   const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
+  // Hide navbar on auth pages
   if (location.pathname === '/signup' || location.pathname === '/signin') {
     return null;
   }
@@ -24,16 +24,16 @@ export default function Navbar() {
 
         <ul className="hidden md:flex items-center space-x-8 font-medium text-sm text-gray-600">
           <li><Link to="/products" className="hover:text-black transition-colors">Products</Link></li>
-          <li><Link to="#" className="hover:text-black transition-colors">About</Link></li>
+          <li><Link to="/about" className="hover:text-black transition-colors">About</Link></li>
         </ul>
 
         <div className="flex items-center space-x-6">
           
-          {/* 3. Conditional Rendering based on Auth State */}
+          {/* Conditional Rendering based on Auth State */}
           {user ? (
             <div className="flex items-center gap-4">
-              {/* User Avatar / Name */}
-              <div className="flex items-center gap-2">
+              {/* User Avatar / Name wrapped in Link to Dashboard */}
+              <Link to="/dashboard" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                 {user.user_metadata.avatar_url ? (
                   <img 
                     src={user.user_metadata.avatar_url} 
@@ -46,9 +46,9 @@ export default function Navbar() {
                   </div>
                 )}
                 <span className="hidden md:block text-sm font-medium text-gray-700">
-                  {user.user_metadata.full_name?.split(' ')[0]} {/* Shows first name */}
+                  {user.user_metadata.full_name?.split(' ')[0]}
                 </span>
-              </div>
+              </Link>
 
               {/* Sign Out Button */}
               <button 

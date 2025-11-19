@@ -6,8 +6,8 @@ import { Trash2, Plus, Minus } from 'lucide-react';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { staggerChildren: 0.1 }
   },
@@ -29,11 +29,11 @@ export default function CartPage() {
       variants={containerVariants}
     >
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Your Cart</h1>
-      
+
       {cartItems.length === 0 ? (
         <div className="text-center py-20">
           <p className="text-xl text-gray-600 mb-4">Your cart is empty.</p>
-          <Link 
+          <Link
             to="/products"
             className="bg-black text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-gray-800 transition-all"
           >
@@ -43,12 +43,12 @@ export default function CartPage() {
       ) : (
         <div className="grid lg:grid-cols-3 gap-12">
           {/* Cart Items List */}
-          <motion.ul 
+          <motion.ul
             className="lg:col-span-2 space-y-6"
             variants={containerVariants}
           >
             {cartItems.map((item) => (
-              <motion.li 
+              <motion.li
                 key={item.id}
                 className="flex items-center gap-6 p-4 bg-white rounded-lg shadow-sm border"
                 variants={itemVariants}
@@ -58,17 +58,17 @@ export default function CartPage() {
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-800">{item.name}</h3>
                   <p className="text-sm text-gray-600">${item.price}</p>
-                  
+
                   {/* Quantity Controls */}
                   <div className="flex items-center gap-2 mt-2">
-                    <button 
+                    <button
                       onClick={() => updateQuantity(item.id, item.quantity - 1)}
                       className="p-1 rounded-full text-gray-500 hover:bg-gray-100"
                     >
                       <Minus size={16} />
                     </button>
                     <span className="w-8 text-center">{item.quantity}</span>
-                    <button 
+                    <button
                       onClick={() => updateQuantity(item.id, item.quantity + 1)}
                       className="p-1 rounded-full text-gray-500 hover:bg-gray-100"
                     >
@@ -78,7 +78,7 @@ export default function CartPage() {
                 </div>
                 <div className="flex flex-col items-end">
                   <p className="font-semibold text-lg">${(item.price * item.quantity).toFixed(2)}</p>
-                  <button 
+                  <button
                     onClick={() => removeFromCart(item.id)}
                     className="text-red-500 hover:text-red-700 mt-2"
                   >
@@ -109,9 +109,12 @@ export default function CartPage() {
                 <span>Total</span>
                 <span>${subtotal.toFixed(2)}</span>
               </div>
-              <button className="mt-6 w-full bg-black text-white font-semibold py-3 rounded-lg shadow-md hover:bg-gray-800 transition-all">
-                Proceed to Checkout
-              </button>
+              <Link to="/checkout">
+                <button className="mt-6 w-full bg-black text-white font-semibold py-3 rounded-lg shadow-md hover:bg-gray-800 transition-all">
+                  Proceed to Checkout
+                </button>
+              </Link>
+
             </div>
           </div>
         </div>
