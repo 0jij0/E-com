@@ -5,7 +5,7 @@ import Navbar from './components/layout/Navbar';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetailPage from './pages/ProductDetailPage';
-import CartPage from './pages/CArtPage';
+import CartPage from './pages/CartPage';
 import SignUpPage from './pages/SignUpPage'; // 1. Import the new page
 import CheckoutPage from './pages/CheckoutPage';
 import SuccessPage from './pages/SuccessPage';
